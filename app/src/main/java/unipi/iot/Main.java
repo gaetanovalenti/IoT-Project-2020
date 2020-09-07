@@ -1,7 +1,12 @@
 package unipi.iot;
 
+import org.eclipse.californium.core.CoapClient;
+import org.eclipse.californium.core.CoapResponse;
+import org.eclipse.californium.core.coap.MediaTypeRegistry;
+
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Main {
 
@@ -46,7 +51,7 @@ public class Main {
                         }
                         break;
                     case 5:
-                        if ((index = getNodeFromId()) != null)
+                        if ((index = getNode()) != null)
                             singleResourceInfo(index);
                         break;
                     case 6:
@@ -101,7 +106,8 @@ public class Main {
 
     public static Integer getNode() {
 		System.out.print("Insert the node id: ");
-		Integer index = insertInputLine();
+        Scanner in = new Scanner(System.in);
+        int index = in.nextInt();
 		System.out.println();
 		if (index == -1)
 			return null;
@@ -131,9 +137,6 @@ public class Main {
 		if (list.isEmpty())
 			return "N/A";
         return list.get(list.size() - 1);
-        System.out.println("\n -------------------------------------------- \n");
-        System.out.println("\n -------------------------------------------- \n");
-        showOperations();
     }
     
     public static void singleResourceInfo(Integer index) {

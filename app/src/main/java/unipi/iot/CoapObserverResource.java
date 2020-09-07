@@ -1,18 +1,28 @@
 package unipi.iot;
 
 import org.eclipse.californium.core.CoapClient;
+import org.eclipse.californium.core.CoapHandler;
+import org.eclipse.californium.core.CoapObserveRelation;
+import org.eclipse.californium.core.CoapResponse;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
+import org.json.simple.parser.ParseException;
+
+import java.util.ArrayList;
 
 public class CoapObserverResource extends CoapClient {
     private Brightness brightness;
 	CoapObserveRelation coapObserveRelation;
 
-	public CoapObserverClient(Brightness brightness) {
+	public CoapObserverResource(Brightness brightness) {
 		super(brightness.getResourceURI());
 		this.brightness = brightness;
 	}
 
-	public void startObserving() {
-		coapObserveRelation = this.observe(new CoapHandler () {
+
+
+    public void startObserving() {
+		coapObserveRelation = this.observe(new CoapHandler() {
 			public void onLoad(CoapResponse response) {
 				try {
 					String value;
@@ -46,7 +56,7 @@ public class CoapObserverResource extends CoapClient {
 	
 					ArrayList<String> brightnessValues = brightness.getBrightnessValues();
 					brightnessValues.add(value);
-					Main.brightnesses.get(Main.brightnesses.indexOf(thermostat))
+					Main.brightnesses.get(Main.brightnesses.indexOf(brightness))
 							.setBrightnessValues(brightnessValues);
 	
 				} catch (ParseException e) {

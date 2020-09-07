@@ -1,6 +1,11 @@
 package unipi.iot;
 
+import org.eclipse.californium.core.CoapClient;
 import org.eclipse.californium.core.CoapResource;
+import org.eclipse.californium.core.CoapResponse;
+import org.eclipse.californium.core.server.resources.CoapExchange;
+
+import java.net.InetAddress;
 
 public class RegistrationResource extends CoapResource {
 
@@ -49,7 +54,7 @@ public class RegistrationResource extends CoapResource {
 	}
 
 	private static void observe(Brightness brightness) {
-		MainApp.coapObserverClients.add(new CoapObserverClient(brightness));
-		MainApp.coapObserverClients.get(MainApp.coapObserverClients.size() - 1).startObserving();
+		Main.coapObserverClients.add(new CoapObserverResource(brightness));
+		Main.coapObserverClients.get(Main.coapObserverClients.size() - 1).startObserving();
 	}
 }
