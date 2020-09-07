@@ -125,7 +125,7 @@ public class Main {
 			System.out.println("Error: " + code);
 			return;
 		}
-		roller.setState(mode);
+		rollers.get(rollers.indexOf(roller)).setState(mode);
         System.out.println("Roller Shutter system switched to: " + state);
         System.out.println("\n -------------------------------------------- \n");
         System.out.println("\n -------------------------------------------- \n");
