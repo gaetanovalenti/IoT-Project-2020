@@ -18,7 +18,7 @@
 #define PERIODIC_HANDLER_INTERVAL 15
 
 static int brightness_value = 450;
-extern bool roller_state;
+extern bool roller_state = 0;
 static int counter = 0;
 
 int generate_random_brightness(int lower, int upper) 
@@ -30,7 +30,7 @@ int generate_random_brightness(int lower, int upper)
 static void res_get_handler(coap_message_t *request, coap_message_t *response, uint8_t *buffer, uint16_t preferred_size, int32_t *offset);
 static void res_event_handler(void);
 
-EVENT_RESOURCE(thermostat,
+EVENT_RESOURCE(brightness,
    "title=\"Outside Brightness\";obs;rt=\"Brightness Sensor\"",
    res_get_handler,
    NULL,

@@ -32,21 +32,28 @@ public class CoapObserverResource extends CoapClient {
 					if (jo.containsKey("brightness")) {
 						value = jo.get("brightness").toString();
 						Integer numericValue = Integer.parseInt(value.trim());
+						System.out.println("observed value of brightness is" + numericValue);
 	
 						if (numericValue < lowerThreshold) {
 							index = Main.brightnesses.indexOf(brightness);
 							Roller roller = Main.rollers.get(index);
 							Boolean state = roller.getState();
-							if (!state)
+							if (!state) {
+								System.out.println("observed state of roller is" + state);
 								roller.setState(false);
+								System.out.println("observed state of roller is" + roller.getState());
+							}
 						}
 	
 						if (numericValue > upperThreshold) {
 							index = Main.brightnesses.indexOf(brightness);
 							Roller roller = Main.rollers.get(index);
 							Boolean state = roller.getState();
-							if (state) 
-								roller.setState(true);							
+							if (state) {
+								System.out.println("observed state of roller is" + state);
+								roller.setState(true);
+								System.out.println("observed state of roller is" + roller.getState());
+							}
 						}
 	
 					} else {
