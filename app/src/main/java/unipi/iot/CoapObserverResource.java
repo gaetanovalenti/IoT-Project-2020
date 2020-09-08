@@ -31,7 +31,12 @@ public class CoapObserverResource extends CoapClient {
 					JSONObject jo = (JSONObject) JSONValue.parseWithException(response.getResponseText());
 					Integer lowerThreshold = 200, upperThreshold = 700, index;
 
-					if (jo.containsKey("brightness")) {
+					if(jo.containsKey("state")){
+						value = jo.get("state").toString();
+						if(strncmp(r_state, "ON", len) == 0)
+					}
+
+					/*if (jo.containsKey("brightness")) {
 						value = jo.get("brightness").toString();
 						Integer numericValue = Integer.parseInt(value.trim());
 						System.out.println("observed value of brightness is" + numericValue);
@@ -60,7 +65,7 @@ public class CoapObserverResource extends CoapClient {
 					} else {
 						System.out.println("Brightness value not found.");
 						return;
-					}
+					}*/
 
 					ArrayList<String> brightnessValues = brightness.getBrightnessValues();
 					brightnessValues.add(value);
