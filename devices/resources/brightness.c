@@ -18,7 +18,7 @@
 #define PERIODIC_HANDLER_INTERVAL 15
 
 static int brightness_value = 450;
-extern bool roller_state = 0;
+extern bool roller_state;
 static int counter = 0;
 
 int generate_random_brightness(int lower, int upper) 
