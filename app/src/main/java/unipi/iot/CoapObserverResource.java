@@ -34,7 +34,7 @@ public class CoapObserverResource extends CoapClient {
 					if (jo.containsKey("brightness")) {
 						value = jo.get("brightness").toString();
 						Integer numericValue = Integer.parseInt(value.trim());
-						System.out.println("observed value of brightness is" + numericValue);
+						//System.out.println("observed value of brightness is" + numericValue);
 
 						if (numericValue < lowerThreshold) {
 							index = Main.brightnesses.indexOf(brightness);
