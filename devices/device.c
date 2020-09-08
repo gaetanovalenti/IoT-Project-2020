@@ -14,7 +14,7 @@
 #define LOG_MODULE "App"
 #define LOG_LEVEL LOG_LEVEL_DBG
 
-#define TRIGGER_INTERVAL	15
+#define TRIGGER_INTERVAL	5
 
 #define SERVER_EP "coap://[fd00::1]:5683"
 
