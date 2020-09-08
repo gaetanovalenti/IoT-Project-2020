@@ -96,8 +96,8 @@ public class Main {
 			Roller roller = rollers.get(i);
 			System.out.println(
 					+i + "\tBrightness: " + brightness.getAddress() + " " + brightness.getPath());
-			System.out.println(+i + "\tRoller Shutter System: " + roller.getAddress() + " "
-					+ roller.getPath() + Boolean.toString(roller.getState())+ " "+"\n");
+			System.out.println(+i + "\tRoller Shutter System: " + roller.getAddress() + "  "
+					+ roller.getPath() +"   "+ roller.getState() + " "+"\n");
         }
         System.out.println("\n -------------------------------------------- \n");
         System.out.println("\n -------------------------------------------- \n");

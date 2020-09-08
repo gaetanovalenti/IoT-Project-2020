@@ -14,7 +14,7 @@ bool roller_state = 0;
 static void res_get_handler(coap_message_t *request, coap_message_t *response, uint8_t *buffer, uint16_t preferred_size, int32_t *offset);
 static void res_post_put_handler(coap_message_t *request, coap_message_t *response, uint8_t *buffer, uint16_t preferred_size, int32_t *offset);
 
-RESOURCE(cooling,
+RESOURCE(roller,
          "title=\"Roller Shutter controller: ?POST/PUT state=ON|OFF\";obs;rt=\"Roller Control\"",
          res_get_handler,
          res_post_put_handler,
@@ -26,7 +26,7 @@ static void res_get_handler(coap_message_t *request, coap_message_t *response, u
   if(request != NULL) 
     LOG_DBG("GET Request Sent\n");
 
-	LOG_DBG("STATE: %d\n", state);
+	LOG_DBG("STATE: %d\n", roller_state);
 
 	unsigned int accept = -1;
   coap_get_header_accept(request, &accept);
@@ -36,12 +36,12 @@ static void res_get_handler(coap_message_t *request, coap_message_t *response, u
 
 	if(accept == APPLICATION_XML) {
 		coap_set_header_content_format(response, APPLICATION_XML);
-		snprintf((char *)buffer, COAP_MAX_CHUNK_SIZE, "<state=\"%d\"/>", state);
+		snprintf((char *)buffer, COAP_MAX_CHUNK_SIZE, "<state=\"%d\"/>", roller_state);
 		coap_set_payload(response, buffer, strlen((char *)buffer));
     
 	} else if(accept == APPLICATION_JSON) {
 		coap_set_header_content_format(response, APPLICATION_JSON);
-		snprintf((char *)buffer, COAP_MAX_CHUNK_SIZE, "{\"state\":%d}", state);
+		snprintf((char *)buffer, COAP_MAX_CHUNK_SIZE, "{\"state\":%d}", roller_state);
 		coap_set_payload(response, buffer, strlen((char *)buffer));
   
 	} else {
@@ -55,20 +55,20 @@ static void res_post_put_handler(coap_message_t *request, coap_message_t *respon
 {
 	if(request != NULL) {
 		LOG_DBG("POST/PUT Request Sent\n");
-		LOG_DBG("Actual state: %d\n", state);
+		LOG_DBG("Actual state: %d\n", roller_state);
 	}
   
 	size_t len = 0;
-	const char *roller_state = NULL;
+	const char *r_state = NULL;
 	int success = 1;
 
-	if((len = coap_get_post_variable(request, "state", &roller_state))) {
-		if(strncmp(roller_state, "ON", len) == 0) {
+	if((len = coap_get_post_variable(request, "state", &r_state))) {
+		if(strncmp(r_state, "ON", len) == 0) {
 			roller_state = 1;
 			LOG_DBG("Roller System started \n");
 			leds_set(LEDS_NUM_TO_MASK(LEDS_GREEN));
-		} else if(strncmp(roller_state, "OFF", len) == 0) {
-			state = 0;
+		} else if(strncmp(r_state, "OFF", len) == 0) {
+			roller_state = 0;
 			LOG_DBG("Roller System stopped \n");
 			leds_set(LEDS_NUM_TO_MASK(LEDS_RED));
 		} else
