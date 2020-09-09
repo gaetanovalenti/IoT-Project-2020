@@ -6,6 +6,6 @@ Instructions:
 1) Start the Cooja simulation
 
 2) From terminal:
-    Go to the border router directory and launch "make TARGET=cooja connect-router-cooja"
+    Go to the border router directory and launch > make TARGET=cooja connect-router-cooja
 
-3) Then, start the java application. For instance, "java -jar target/app-0.0.1-SNAPSHOT.jar" 
+3) Then, start the java application. For instance, > java -jar target/app-0.0.1-SNAPSHOT.jar
